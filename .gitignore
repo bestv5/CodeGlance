@@ -6,3 +6,5 @@
 *.iml
 *.ipr
 *.iws
+/bin
+/bin

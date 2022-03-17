@@ -1,32 +1,25 @@
 package net.vektah.codeglance.config
 
-import com.intellij.openapi.components.*
+import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.openapi.components.State
+import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
-import java.lang.ref.WeakReference
 
 @State(
-        name = "CodeGlance3",
-        storages = [
-            Storage( "CodeGlance.xml")
-        ]
+    name = "CodeGlance",
+    storages = [Storage("CodeGlance.xml")]
 )
 class ConfigService : PersistentStateComponent<Config> {
-    private val observers : MutableList<WeakReference<() -> Unit>> = arrayListOf()
+    private val observers : MutableSet<() -> Unit> = hashSetOf()
     private val config = Config()
 
     override fun getState(): Config? = config
-    public fun onChange(f :() -> Unit) = observers.add(WeakReference<() -> Unit>(f))
+    public fun addOnChange(f :() -> Unit) = observers.add(f)
+    public fun removeOnChange(f :() -> Unit) = observers.remove(f)
 
     public fun notifyChange() {
-        val it = observers.listIterator()
-        while(it.hasNext()) {
-            val f = it.next().get()
-
-            if (f == null) {
-                it.remove()
-            } else {
-                f()
-            }
+        observers.forEach {
+            it()
         }
     }
 
@@ -34,4 +27,3 @@ class ConfigService : PersistentStateComponent<Config> {
         XmlSerializerUtil.copyBean(config, this.config)
     }
 }
-

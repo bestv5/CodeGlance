@@ -25,11 +25,13 @@
 
 package net.vektah.codeglance.render
 
+import org.testng.Assert.assertFalse
+import org.testng.Assert.assertTrue
 import org.testng.annotations.Test
-import org.testng.Assert.*
 
 class FoldsTest {
-    @Test fun testNothingMatchesEmptyFoldSet() {
+    @Test
+    fun testNothingMatchesEmptyFoldSet() {
         val folds = Folds()
 
         assertFalse(folds.isFolded(0))
@@ -38,7 +40,8 @@ class FoldsTest {
         assertFalse(folds.isFolded(99))
     }
 
-    @Test fun testFoldedRegionMatch() {
+    @Test
+    fun testFoldedRegionMatch() {
         val folds = Folds(arrayOf(FakeFold(10, 20, true)))
 
         assertFalse(folds.isFolded(0))
@@ -49,7 +52,8 @@ class FoldsTest {
     }
 
 
-    @Test fun testUnfoldedRegionsDontMatch() {
+    @Test
+    fun testUnfoldedRegionsDontMatch() {
         val folds = Folds(arrayOf(FakeFold(10, 20, false)))
 
         assertFalse(folds.isFolded(0))
@@ -58,13 +62,16 @@ class FoldsTest {
         assertFalse(folds.isFolded(25))
     }
 
-    @Test fun testNestedFoldedRegions() {
-        val folds = Folds(arrayOf(
-            FakeFold(10, 20, true),
-            FakeFold(12, 16, true),
-            FakeFold(14, 15, true),
-            FakeFold(18, 19, true)
-        ))
+    @Test
+    fun testNestedFoldedRegions() {
+        val folds = Folds(
+            arrayOf(
+                FakeFold(10, 20, true),
+                FakeFold(12, 16, true),
+                FakeFold(14, 15, true),
+                FakeFold(18, 19, true)
+            )
+        )
 
         assertFalse(folds.isFolded(0))
         assertTrue(folds.isFolded(11))

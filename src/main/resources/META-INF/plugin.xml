@@ -1,7 +1,7 @@
-<idea-plugin url="https://github.com/Vektah/CodeGlance">
+<idea-plugin url="https://github.com/ranbest/CodeGlance">
 	<id>cn.haojiyou.CodeGlance3</id>
 	<name>CodeGlance3</name>
-	<version>2.0.1</version>
+	<version>2.1.1</version>
 	<vendor email="lixr873@163.com" url="https://github.com/ranbest/CodeGlance">ranbest</vendor>
 
 	<description>
@@ -10,129 +10,26 @@
 	</description>
 
 	<change-notes><![CDATA[
+		<h3>2.1.1</h3>
+		<ul>
+			<li>fix bug</li>
+		</ul>
+		<h3>2.1.0</h3>
+		<ul>
+			<li>update to 2021.1.3</li>
+		</ul>
+		<h3>2.0.2</h3>
+		<ul>
+			<li>update to 2021.1.3</li>
+		</ul>
 		<h3>2.0</h3>
 		<ul>
 			<li>update to 2020.3</li>
 		</ul>
-		<h3>1.5.4</h3>
-		<ul>
-			<li>Bugfix: Viewport position now calculates correctly for large files -@ru5k</li>
-		</ul>
-		<h3>1.5.3</h3>
-		<ul>
-			<li>Bugfix: Render style and alignment now save correctly</li>
-			<li>Bugfix: Queue full</li>
-		</ul>
-		<h3>1.5.2</h3>
-		<ul>
-			<li>Add support for transparent backgrounds</li>
-			<li>Add an option to lock the width</li>
-			<li>Bugfix: Assertion error</li>
-		</ul>
-		<h3>1.5.1</h3>
-		<ul>
-			<li>Fix a bug that causes the minimap not to render</li>
-			<li>Added a min editor width to automatically disable codeglance. Thanks github.com/bukajsytlos</li>
-		</ul>
-		<h3>1.5.0</h3>
-		<ul>
-			<li>Complete overhaul of scrolling logic. Smoother, faster, more accurate</li>
-			<li>A cleaner look. Old renderer is available still in settings</li>
-			<li>Correctly renders multiple cursors</li>
-			<li>Fix a bug injecting into some custom editors</li>
-			<li>Don't automatically re-enable CodeGlance on boot</li>
-		</ul>
-		<h3>1.4.6</h3>
-		<ul>
-			<li>Add min and max documentWidth</li>
-			<li>Remove a useless warning</li>
-			<li>Fix a bug when encountering tokens past the end of the document</li>
-		</ul>
-		<h3>1.4.5</h3>
-		<ul>
-			<li>Add support for 171.3556 EAPs</li>
-			<li>Fix a race condition when folding</li>
-		</ul>
-		<h3>1.4.4</h3>
-		<ul>
-			<li>Increase maximum file size to 1MB, up from 20k</li>
-		</ul>
-		<h3>1.4.3</h3>
-		<ul>
-			<li>Fixed a memory leak</li>
-			<li>Reduced the total memory used to about half</li>
-			<li>Lots of dead bugs.</li>
-		</ul>
-		<h3>1.4.2</h3>
-		<ul>
-			<li>Bugfix: Disable retina scaling. This should fix some of the current retina issues.</li>
-		</ul>
-		<h3>1.4.1</h3>
-		<ul>
-			<li>Bugfix: NPE in getLine</li>
-			<li>Bugfix: Increase render queue to 1000 requests</li>
-		</ul>
-		<h3>1.4.0</h3>
-		<ul>
-			<li>Scrolling while hovering over the overview now works</li>
-			<li>Add a keybind to show/hide codeglance. Default is control shift G</li>
-			<li>Display editor selection in real time</li>
-			<li>Selection is now resizeable</li>
-			<li>Configurable viewport color</li>
-		</ul>
-		<h3>1.3.2: Fixed a memory leak</h3>
-		<h3>1.3.1: Fix a NPE in offsetToScreenSpace()</h3>
-		<h3>1.3.0: Folding support</h3>
-		<ul>
-			<li>Dragging is now relative to the start point. This means less sudden jumping around</li>
-			<li>This required some fairly heavy changes to the coordinate code.</li>
-		</ul>
-		<h3>1.2.3: Added scale config item!</h3>
-		<ul>
-			<li>Fix regression of 'Already disposed'</li>
-			<li>Added ability to disable CodeGlance without restarting</li>
-		</ul>
-		<h3>1.2.2: Added scale config item!</h3>
-		<ul>
-			<li>Fixed an NPE in PhpStorm</li>
-			<li>Fixed clicking on a section of code in a long file, dragging still behaves the same with percentage based movement.</li>
-			<li>Pixels per line is now configurable</li>
-		</ul>
-		<h3>1.2.1: Scale fixes</h3>
-		<ul>
-			<li>Fixed a rendering issue for osx with vertical stretching.</li>
-			<li>Fixes stretching of the view area when looking at large files.</li>
-			<li>Increased viewport visibility a touch.</li>
-		</ul>
-		<h3>1.2: Smaller with transparency</h3>
-		<ul>
-			<li>Now uses a transparent selection box and the maximum documentWidth is limited to 100 chars. This will probably become configurable</li>
-			<li>Increased the number of render jobs that can be in the queue</li>
-			<li>Improved handling of very long lines.</li>
-		</ul>
-		<h3>1.1a: Misc fixes</h3>
-		<ul>
-			<li>Use new BufferedImage instead of UiUtil for Idea 11.x compatibility.</li>
-			<li>Limited panel injection only to text editors</li>
-			<li>Fixed a bug with split panes not displaying correctly on restart</li>
-		</ul>
-		<h3>1.1: Small performance and aesthetic improvements</h3>
-		<ul>
-			<li>Optimized the rendering loop a little</li>
-			<li>Fixed a bug with scrolling in large files and the reticule not matching the top correctly.</li>
-			<li>Made character weighting non random, removes the 'film grain' effect when rapidly updating a document.</li>
-		</ul>
 
-		<h3>1.0: Initial release of the plugin:</h3>
-		<ul>
-			<li>Worker thread for rendering</li>
-			<li>Color rendering using intelij's tokenizer</li>
-			<li>Scrollable!</li>
-			<li>- Embedded into editor window</li>
-		</ul>
 	]]></change-notes>
 
-	<idea-version since-build="203.5981"/>
+	<idea-version since-build="211.*"/>
 
 	<depends>com.intellij.modules.lang</depends>
 
@@ -148,6 +45,6 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<applicationService serviceImplementation="net.vektah.codeglance.config.ConfigService" />
-		<applicationConfigurable implementation="net.vektah.codeglance.config.ConfigEntry" />
+		<applicationConfigurable instance="net.vektah.codeglance.config.ConfigEntry" />
 	</extensions>
 </idea-plugin>

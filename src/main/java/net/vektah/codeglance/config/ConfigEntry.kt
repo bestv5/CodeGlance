@@ -25,9 +25,7 @@
 
 package net.vektah.codeglance.config
 
-import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.components.ServiceManager
-import com.intellij.openapi.components.ServiceManager.getService
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
 import org.jetbrains.annotations.Nls
@@ -37,7 +35,6 @@ import javax.swing.*
 class ConfigEntry : Configurable {
     private var form: ConfigForm? = null
     private val configService = ServiceManager.getService(ConfigService::class.java)
-
     private val config = configService.state!!
 
     @Nls
@@ -55,18 +52,18 @@ class ConfigEntry : Configurable {
         return form!!.root
     }
 
-    override fun isModified() = form != null &&
-        (config.pixelsPerLine != form!!.pixelsPerLine
-            || config.disabled != form!!.isDisabled
-            || config.locked != form!!.isLocked
+    override fun isModified(): Boolean = form != null && (
+        config.disabled != form!!.isDisabled
+            || config.pixelsPerLine != form!!.pixelsPerLine
             || config.jumpOnMouseDown != form!!.jumpOnMouseDown()
-            || config.percentageBasedClick != form!!.percentageBasedClick()
             || config.width != form!!.width
-            || config.viewportColor !== form!!.viewportColor
+            || config.locked != form!!.isLocked
+            || config.viewportColor != form!!.viewportColor
             || config.minLineCount != form!!.minLinesCount
             || config.minWindowWidth != form!!.minWindowWidth
             || config.clean != form!!.cleanStyle
-            || config.isRightAligned != form!!.isRightAligned)
+            || config.isRightAligned != form!!.isRightAligned
+    )
 
     @Throws(ConfigurationException::class)
     override fun apply() {
@@ -76,8 +73,7 @@ class ConfigEntry : Configurable {
         config.disabled = form!!.isDisabled
         config.locked = form!!.isLocked
         config.jumpOnMouseDown = form!!.jumpOnMouseDown()
-        config.percentageBasedClick = form!!.percentageBasedClick()
-        config.width = form!!.width
+        config.width = form!!.width.coerceAtLeast(50)
 
         if (form!!.viewportColor.length == 6 && form!!.viewportColor.matches("^[a-fA-F0-9]*$".toRegex())) {
             config.viewportColor = form!!.viewportColor
@@ -97,15 +93,14 @@ class ConfigEntry : Configurable {
 
         form!!.pixelsPerLine = config.pixelsPerLine
         form!!.isDisabled = config.disabled
-        form!!.isLocked = config.locked
+        form!!.isLocked= config.locked
         form!!.setJumpOnMouseDown(config.jumpOnMouseDown)
-        form!!.setPercentageBasedClick(config.percentageBasedClick)
         form!!.viewportColor = config.viewportColor
         form!!.width = config.width
         form!!.minLinesCount = config.minLineCount
         form!!.minWindowWidth = config.minWindowWidth
-        form!!.setCleanStyle(config.clean)
-        form!!.setRightAligned(config.isRightAligned)
+        form!!.cleanStyle = config.clean
+        form!!.isRightAligned = config.isRightAligned
     }
 
     override fun disposeUIResources() {

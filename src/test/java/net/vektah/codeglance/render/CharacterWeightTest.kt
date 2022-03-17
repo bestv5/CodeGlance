@@ -25,36 +25,39 @@
 
 package net.vektah.codeglance.render
 
+import org.testng.Assert.*
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-
-import org.testng.Assert.*
 
 /**
  * Some basic sanity tests that the weight generation function works OK.
  */
 class CharacterWeightTest {
-    @Test fun test_lower_boundaries() {
+    @Test
+    fun test_lower_boundaries() {
         assertEquals(0.0f, GetTopWeight(0), 0.001f)
-        assertEquals(0.0f,GetTopWeight(1), 0.001f)
-        assertEquals(0.0f,GetTopWeight(32), 0.001f)
-        assertNotEquals(0.0f,GetTopWeight(33))
-        assertNotEquals(0.0f,GetTopWeight(127))
-        assertNotEquals(0.0f,GetTopWeight(128))
+        assertEquals(0.0f, GetTopWeight(1), 0.001f)
+        assertEquals(0.0f, GetTopWeight(32), 0.001f)
+        assertNotEquals(0.0f, GetTopWeight(33))
+        assertNotEquals(0.0f, GetTopWeight(127))
+        assertNotEquals(0.0f, GetTopWeight(128))
     }
 
-    @Test(dataProvider = "Test-Relative-Weights") fun test_relative_weights_are_sane(a: Char, b: Char) {
+    @Test(dataProvider = "Test-Relative-Weights")
+    fun test_relative_weights_are_sane(a: Char, b: Char) {
         assertTrue(GetTopWeight(a.toInt()) + GetBottomWeight(a.toInt()) < GetTopWeight(b.toInt()) + GetBottomWeight(b.toInt()))
     }
 
-    @Test fun test_known_values() {
+    @Test
+    fun test_known_values() {
         assertEquals(0.2458f, GetTopWeight('v'.toInt()))
         assertEquals(0.3538f, GetBottomWeight('v'.toInt()))
     }
 
     companion object {
 
-        @DataProvider(name = "Test-Relative-Weights") fun testRelativeWeights(): Array<Array<Any>> {
+        @DataProvider(name = "Test-Relative-Weights")
+        fun testRelativeWeights(): Array<Array<Any>> {
             return arrayOf(
                 arrayOf<Any>('.', ','),
                 arrayOf<Any>('1', '8'),
